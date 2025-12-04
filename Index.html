@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <title>Portfólio do projeto MapeIA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        :root {
+            --verde-principal: #198754; /* verde elegante para barra */
+            --cinza-escuro: #1f2933;
+            --cinza-claro: #f5f5f7;
+            --branco: #ffffff;
+            --accent: #00c7a5;
+            --fonte-principal: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--fonte-principal);
+            background: radial-gradient(circle at top left, #0f172a 0%, #020617 40%, #000 100%);
+            color: var(--branco);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* CONTAINER GERAL */
+        .page-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        /* CABEÇALHO COM NOME TRANSPARENTE AO FUNDO */
+        header {
+            position: relative;
+            padding: 3rem 1rem 2rem;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        header h1 {
+            position: relative;
+            z-index: 2;
+            font-size: clamp(2.2rem, 4vw, 3rem);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        /* "Tatiana Pará" transparente como fundo */
+        .marca-agua-nome {
+            position: absolute;
+            inset: 50% auto auto 50%;
+            transform: translate(-50%, -50%);
+            font-size: clamp(4rem, 10vw, 6.5rem);
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.05);
+            white-space: nowrap;
+            pointer-events: none;
+            user-select: none;
+            z-index: 1;
+        }
+
+        .subtitulo-visivel {
+            position: relative;
+            z-index: 2;
+            font-size: 1rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: #e5e7eb;
+        }
+
+        /* BARRA DE NAVEGAÇÃO */
+        nav {
+            background: var(--verde-principal);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+            border-radius: 999px;
+            margin: 0 auto 2.5rem;
+            max-width: 720px;
+        }
+
+        .nav-lista {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            list-style: none;
+            padding: 0.9rem 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-item a {
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 0.4rem 0.9rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            display: inline-block;
+        }
+
+        .nav-item a:hover {
+            background: var(--branco);
+            color: #065f46;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+        }
+
+        /* SEÇÕES GERAIS */
+        main {
+            flex: 1;
+        }
+
+        section {
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(8, 47, 73, 0.95));
+            border-radius: 1.5rem;
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.7);
+        }
+
+        section h2 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border-left: 4px solid var(--accent);
+            padding-left: 0.75rem;
+        }
+
+        /* SOBRE MIM */
+        .sobre-wrapper {
+            display: grid;
+            grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .sobre-texto {
+            font-size: 0.98rem;
+            line-height: 1.7;
+            color: #e5e7eb;
+        }
+
+        .sobre-texto strong {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .sobre-foto-container {
+            justify-self: center;
+        }
+
+        .sobre-foto-container img {
+            max-width: 240px;
+            width: 100%;
+            display: block;
+            border-radius: 1.5rem;
+            border: 2px solid rgba(148, 163, 184, 0.7);
+            box-shadow: 0 14px 35px rgba(15, 23, 42, 0.85);
+            object-fit: cover;
+        }
+
+        .sobre-legenda {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            text-align: center;
+            color: #cbd5f5;
+            opacity: 0.8;
+        }
+
+        /* MAPAS – APENAS ESTRUTURA E FILTROS */
+        .mapas-filtros {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .filtro-btn {
+            padding: 0.45rem 1rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            background: rgba(15, 23, 42, 0.7);
+            color: #e5e7eb;
+            font-size: 0.9rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        .filtro-btn.ativo {
+            background: var(--accent);
+            color: #022c22;
+            border-color: var(--accent);
+            box-shadow: 0 8px 18px rgba(34, 197, 154, 0.35);
+        }
+
+        .filtro-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 14px rgba(15, 23, 42, 0.7);
+        }
+
+        .mapas-grid-placeholder {
+            border-radius: 1.25rem;
+            border: 1px dashed rgba(148, 163, 184, 0.7);
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 0.95rem;
+            color: #cbd5f5;
+            background: radial-gradient(circle at top, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.5));
+        }
+
+        .mapas-grid-placeholder p {
+            margin-bottom: 0.5rem;
+        }
+
+        .mapas-grid-placeholder span {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        /* CONTATO */
+        .contato-lista {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .contato-item a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.7);
+            background: rgba(15, 23, 42, 0.7);
+            font-size: 0.9rem;
+            transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .contato-item a:hover {
+            background: var(--accent);
+            color: #022c22;
+            transform: translateY(-1px);
+            box-shadow: 0 8px 16px rgba(34, 197, 154, 0.35);
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #9ca3af;
+            padding: 1rem 0 1.5rem;
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            .page-wrapper {
+                padding: 1rem;
+            }
+
+            header {
+                padding: 2.5rem 0.5rem 1.5rem;
+            }
+
+            .sobre-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .sobre-foto-container {
+                order: -1;
+            }
+
+            section {
+                padding: 1.25rem;
+            }
+
+            .nav-lista {
+                gap: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <header>
+            <!-- Texto transparente de fundo -->
+            <div class="marca-agua-nome">Tatiana Pará</div>
+
+            <!-- Título principal -->
+            <h1>Portfólio do projeto MapeIA</h1>
+
+            <!-- Subtítulo visível logo abaixo do título -->
+            <div class="subtitulo-visivel">
+                Tatiana Pará
+            </div>
+        </header>
+
+        <!-- Barra de navegação centralizada -->
+        <nav>
+            <ul class="nav-lista">
+                <li class="nav-item"><a href="#sobre">Sobre mim</a></li>
+                <li class="nav-item"><a href="#mapas">Mapas</a></li>
+                <li class="nav-item"><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <!-- SEÇÃO SOBRE MIM -->
+            <section id="sobre">
+                <h2>Sobre mim</h2>
+                <div class="sobre-wrapper">
+                    <div class="sobre-texto">
+                        <p>
+                            Sou <strong>cartógrafa</strong> e atuo com geotecnologias, mapeamento digital e análise
+                            espacial aplicada a projetos ambientais, urbanos e de inovação tecnológica. Este portfólio
+                            reúne mapas, experimentos e visualizações produzidos no âmbito do projeto
+                            <strong>MapeIA</strong>, integrando dados geográficos, sensoriamento remoto e técnicas
+                            contemporâneas de visualização cartográfica.
+                        </p>
+                        <p style="margin-top: 0.75rem;">
+                            A proposta desta página é apresentar, de forma organizada e interativa, diferentes tipos de
+                            mapas – temáticos, artísticos, analíticos e de localização – destacando o potencial da
+                            cartografia para comunicar dados complexos de forma clara, elegante e tecnicamente robusta.
+                        </p>
+                    </div>
+
+                    <div class="sobre-foto-container">
+                        <!-- 
+                          IMPORTANTE:
+                          Substitua "FOTO_TATIANA.jpg" pelo nome EXATO da foto que você anexar na mesma pasta do HTML.
+                          Não gere imagens por IA; use somente o arquivo de foto anexado por você.
+                        -->
+                        <img src="FOTO_TATIANA.jpg" alt="Foto de Tatiana Pará - Cartógrafa">
+                        <div class="sobre-legenda">
+                            Foto: Tatiana Pará – Cartógrafa e idealizadora do projeto MapeIA.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO MAPAS – APENAS ESTRUTURA E FILTROS -->
+            <section id="mapas">
+                <h2>Mapas</h2>
+
+                <!-- Filtros de categoria -->
+                <div class="mapas-filtros">
+                    <button class="filtro-btn ativo" data-filter="todos">Todos os Mapas</button>
+                    <button class="filtro-btn" data-filter="localizacao">Mapas de localização</button>
+                    <button class="filtro-btn" data-filter="tematico">Mapas temáticos</button>
+                    <button class="filtro-btn" data-filter="artistico">Mapas artísticos</button>
+                    <button class="filtro-btn" data-filter="analitico">Mapas analíticos</button>
+                </div>
+
+                <!-- Placeholder da grade de mapas (sem mapas adicionados ainda) -->
+                <div class="mapas-grid-placeholder">
+                    <p>
+                        A estrutura de filtros já está preparada para receber seus mapas.
+                    </p>
+                    <span>
+                        Quando você adicionar as imagens dos mapas, poderá associá-las às categorias:
+                        localização, temático, artístico e analítico, mantendo o portfólio organizado e fácil de navegar.
+                    </span>
+                </div>
+            </section>
+
+            <!-- SEÇÃO CONTATO -->
+            <section id="contato">
+                <h2>Contato</h2>
+                <ul class="contato-lista">
+                    <li class="contato-item">
+                        <a href="https://www.linkedin.com/in/tatianapara/" target="_blank" rel="noopener noreferrer">
+                            <!-- só texto, sem ícone gerado -->
+                            <span>LinkedIn</span>
+                            <strong>/tatianapara</strong>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            © <span id="ano-atual"></span> Portfólio do projeto MapeIA · Desenvolvido por Tatiana Pará.
+        </footer>
+    </div>
+
+    <!-- Script simples apenas para ano e preparação de filtros (sem mapas ainda) -->
+    <script>
+        // Atualiza ano automaticamente no rodapé
+        document.getElementById('ano-atual').textContent = new Date().getFullYear();
+
+        // Estrutura básica de interação dos filtros (pronta para quando os mapas forem adicionados)
+        const botoesFiltro = document.querySelectorAll('.filtro-btn');
+
+        botoesFiltro.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // marca visualmente o filtro ativo
+                botoesFiltro.forEach(b => b.classList.remove('ativo'));
+                btn.classList.add('ativo');
+
+                const filtro = btn.getAttribute('data-filter');
+
+                // Quando você adicionar os mapas, poderá usar algo como:
+                // const mapas = document.querySelectorAll('.mapa-item');
+                // mapas.forEach(m => {
+                //   const categoria = m.getAttribute('data-categoria');
+                //   if (filtro === 'todos' || categoria === filtro) {
+                //       m.style.display = 'block';
+                //   } else {
+                //       m.style.display = 'none';
+                //   }
+                // });
+            });
+        });
+    </script>
+</body>
+</html>
